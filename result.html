@@ -3,185 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Result Portal | Al-Falah School</title>
+    <title>Student Portal | Al-Falah Model</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1b5e20; --accent: #e67e22; --text: #2c3e50; }
+        :root { --primary: #004d40; --accent: #fbc02d; --white: #ffffff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: 'Poppins', sans-serif; margin: 0; padding: 20px;
-            /* New Background Image: Professional & Deep */
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1541339907198-e08756ebafe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover; background-attachment: fixed;
-            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            /* Yahan School se mutaliq background image add ki hai */
+            background-image: linear-gradient(rgba(240, 244, 243, 0.8), rgba(240, 244, 243, 0.8)), 
+                              url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            padding: 15px;
+            color: #333;
+        }
+        
+        .wrapper { max-width: 600px; margin: 20px auto; position: relative; z-index: 10; }
+
+        /* Search Section */
+        .search-container {
+            background: rgba(255, 255, 255, 0.95); padding: 25px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .input-group { text-align: left; margin-bottom: 15px; }
+        label { font-size: 0.8rem; font-weight: 600; color: var(--primary); margin-left: 5px; }
+        
+        .input-field, .select-field {
+            width: 100%; padding: 12px; border: 2px solid #e0e0e0;
+            border-radius: 10px; font-size: 1rem; outline: none; margin-top: 5px;
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .btn-search {
+            background: var(--primary); color: white; border: none; width: 100%;
+            padding: 15px; border-radius: 10px; font-weight: 600; cursor: pointer;
+            font-size: 1rem; text-transform: uppercase;
         }
 
-        .main-container { max-width: 850px; margin: 0 auto; background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-
-        .header-section { text-align: center; margin-bottom: 30px; border-bottom: 3px double var(--primary); padding-bottom: 15px; }
-        .header-section h1 { font-family: 'Quicksand', sans-serif; color: var(--primary); margin: 0; font-size: 2.2rem; text-transform: uppercase; }
+        /* Result Card */
+        #resultCard {
+            display: none; background: var(--white); border-radius: 20px;
+            overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease;
+            position: relative;
+        }
         
-        /* Search Area */
-        .search-box { background: #f1f8e9; padding: 25px; border-radius: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; border: 1px solid #c8e6c9; }
-        select, input { padding: 12px; border-radius: 10px; border: 2px solid #ddd; outline: none; font-family: inherit; width: 200px; }
-        .search-btn { background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .search-btn:hover { background: #003300; transform: translateY(-2px); }
+        /* --- WATERMARK (Tehri Line) --- */
+        #resultCard::before {
+            content: "Al-Falah Model Education System";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg); /* Tehri (Diagonal) rotate */
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: rgba(0, 77, 64, 0.05); /* Transparent Teal Color */
+            white-space: nowrap;
+            z-index: 1; /* Data ke peeche */
+            pointer-events: none; /* Click na ho sake */
+        }
 
-        /* Result Card Appearance */
-        #resultDisplay { display: none; animation: slideIn 0.8s ease-out; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .student-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
-        .meta-box { background: #fff; padding: 12px 15px; border-radius: 12px; border-left: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .meta-label { font-weight: 700; color: #666; font-size: 0.8rem; display: block; text-transform: uppercase; }
-        .meta-value { font-weight: 600; color: var(--text); font-size: 1rem; }
-
-        /* Marks Table */
-        .table-container { overflow-x: auto; border-radius: 15px; background: white; border: 1px solid #eee; }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th { background: var(--primary); color: white; padding: 15px; text-align: center; font-family: 'Quicksand', sans-serif; letter-spacing: 1px; }
-        td { padding: 12px; text-align: center; border-bottom: 1px solid #eee; font-weight: 500; }
-        .sub-name { text-align: left; padding-left: 25px; font-weight: 600; color: #34495e; }
-
-        .status-banner { margin-top: 25px; text-align: center; font-size: 1.8rem; font-weight: 700; padding: 15px; border-radius: 15px; text-transform: uppercase; }
-        .pass-bg { background: #e8f5e9; color: #2e7d32; border: 2px solid #2e7d32; }
-        .fail-bg { background: #ffebee; color: #c62828; border: 2px solid #c62828; }
-
-        .print-btn { margin-top: 20px; width: 100%; padding: 12px; border-radius: 10px; border: none; background: #455a64; color: white; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .print-btn:hover { background: #263238; }
+        .card-header { background: var(--primary); color: white; padding: 20px; text-align: center; border-bottom: 4px solid var(--accent); position: relative; z-index: 5; }
+        .student-info { display: grid; grid-template-columns: 1fr 1fr; padding: 15px; background: #f9f9f9; border-bottom: 1px solid #eee; font-size: 0.9rem; position: relative; z-index: 5; }
         
-        @media print { .search-box, .print-btn { display: none; } body { background: white; padding: 0; } .main-container { box-shadow: none; border: 1px solid #eee; width: 100%; } }
-        @media (max-width: 600px) { .student-meta { grid-template-columns: 1fr; } select, input { width: 100%; } }
+        .marks-table { width: 100%; border-collapse: collapse; position: relative; z-index: 5; }
+        .marks-table th { background: #f1f1f1; text-align: left; padding: 10px 15px; font-size: 0.8rem; color: #666; }
+        .marks-table td { padding: 8px 15px; border-bottom: 1px solid #f9f9f9; font-size: 0.9rem; font-weight: 600; }
+        .total-row { background: #eee; font-size: 1rem; color: var(--primary); }
+
+        .final-status { padding: 20px; text-align: center; position: relative; z-index: 5; }
+        .status-badge { padding: 8px 25px; border-radius: 50px; font-weight: 700; display: inline-block; }
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+
+        /* Action Buttons */
+        .action-btns { margin-top: 20px; display: flex; gap: 10px; position: relative; z-index: 10; }
+        .btn-print {
+            background: #444; color: white; border: none; flex: 1;
+            padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body { background: white !important; padding: 0; }
+            body * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .search-container, .action-btns, .btn-search { display: none !important; }
+            .wrapper { max-width: 100%; margin: 0; }
+            #resultCard { box-shadow: none; border: 1px solid #eee; border-radius: 0; display: block !important; overflow: visible; }
+            #resultCard::before { color: rgba(0, 77, 64, 0.08) !important; font-size: 2.5rem; } /* Print par watermark thora wazeh */
+        }
     </style>
 </head>
 <body>
 
-<div class="main-container">
-    <div class="header-section">
-        <h1>Al-Falah Model Education System</h1>
-        <p style="margin:5px; color:#555; font-weight:600;">Toot Campus | Excellence in Education</p>
+<div class="wrapper">
+    <div class="search-container">
+        <h2 style="font-family:'Quicksand'; color:var(--primary); margin-bottom:20px;">Student Portal</h2>
+        <div class="input-group">
+            <label>Select Class</label>
+            <select id="classInput" class="select-field">
+                <option value="">Class...</option>
+                <option value="Nursery">Nursery</option>
+                <option value="Prep">Prep</option>
+                <option value="1st">1st Class</option>
+                <option value="2nd">2nd Class</option>
+                <option value="3rd">3rd Class</option>
+                <option value="4th">4th Class</option>
+                <option value="5th">5th Class</option>
+                <option value="6th">6th Class</option>
+                <option value="7th">7th Class</option>
+                <option value="8th">8th Class</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Roll Number</label>
+            <input type="text" id="rollInput" class="input-field" placeholder="Maslan: 101">
+        </div>
+        <button class="btn-search" onclick="fetchResult()">Show Result</button>
     </div>
 
-    <div class="search-box">
-        <select id="classSel">
-            <option value="">-- Select Class --</option>
-            <option value="Nursery">Nursery</option>
-            <option value="Prep">Prep</option>
-            <option value="1st Class">1st Class</option>
-            <option value="2nd Class">2nd Class</option>
-            <option value="3rd Class">3rd Class</option>
-            <option value="4th Class">4th Class</option>
-            <option value="5th Class">5th Class</option>
-            <option value="6th Class">6th Class</option>
-            <option value="7th Class">7th Class</option>
-            <option value="8th Class">8th Class</option>
-            <option value="9th Class">9th Class</option>
-            <option value="10th Class">10th Class</option>
-        </select>
-        <input type="text" id="rollNo" placeholder="Enter Roll No">
-        <button class="search-btn" onclick="showResult()">View Result</button>
+    <div id="resultCard">
+        <div class="card-header">
+            <h3 style="font-family:'Quicksand';">RESULT REPORT CARD</h3>
+            <p style="font-size: 0.7rem; opacity: 0.9;">Al-Falah Model Education System | Toot Campus</p>
+        </div>
+
+        <div class="student-info">
+            <div><span>Name:</span> <br><b id="resName"></b></div>
+            <div style="text-align:right;"><span>Roll No:</span> <br><b id="resRoll"></b></div>
+            <div style="margin-top:10px;"><span>Class:</span> <br><b id="resClass"></b></div>
+        </div>
+
+        <table class="marks-table">
+            <thead><tr><th>Subject</th><th style="text-align:right;">Marks</th></tr></thead>
+            <tbody id="subjectsBody"></tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td style="padding:12px;"><b>GRAND TOTAL</b></td>
+                    <td style="text-align:right; padding:12px;"><b id="resTotal"></b></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="final-status">
+            <div id="resBadge" class="status-badge"></div>
+            <p style="font-size: 0.6rem; color: #999; margin-top: 15px; display: block; position: relative; z-index: 5;">* This is a computer-generated report.</p>
+        </div>
     </div>
 
-    <div id="resultDisplay">
-        <div class="student-meta">
-            <div class="meta-box"><span class="meta-label">Student Name</span><span class="meta-value" id="sName"></span></div>
-            <div class="meta-box"><span class="meta-label">Father's Name</span><span class="meta-value" id="sFather"></span></div>
-            <div class="meta-box"><span class="meta-label">Class</span><span class="meta-value" id="sClass"></span></div>
-            <div class="meta-box"><span class="meta-label">Roll Number</span><span class="meta-value" id="sRoll"></span></div>
-            <div class="meta-box"><span class="meta-label">Session</span><span class="meta-value" id="sSession"></span></div>
-            <div class="meta-box"><span class="meta-label">Examination</span><span class="meta-value" id="sExam"></span></div>
-        </div>
-
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width:10%">Sr.#</th>
-                        <th style="width:45%">SUBJECTS</th>
-                        <th style="width:20%">FULL MARKS</th>
-                        <th style="width:25%">OBTAINED</th>
-                    </tr>
-                </thead>
-                <tbody id="marksBody"></tbody>
-            </table>
-        </div>
-
-        <div id="statusBox" class="status-banner"></div>
-        <button class="print-btn" onclick="window.print()">Print Result Card</button>
+    <div class="action-btns" id="actionBtns" style="display:none;">
+        <button class="btn-print" onclick="window.print()">
+            <span>🖨️</span> Print Result / Save PDF
+        </button>
     </div>
 </div>
 
 <script>
-    const database = [
-        {
-            roll: "901", class: "9th Class", name: "Dua Khan", father: "Muhammad Ali", exam: "Annual 2026", session: "2026-2027",
-            marks: [
-                {sr: 1, sub: "Islamiat", full: 100, obt: 88},
-                {sr: 2, sub: "Urdu", full: 100, obt: 82},
-                {sr: 3, sub: "English", full: 100, obt: 90},
-                {sr: 4, sub: "Math", full: 100, obt: 87},
-                {sr: 5, sub: "Social Studies", full: 100, obt: 93},
-                {sr: 6, sub: "Science", full: 100, obt: 85},
-                {sr: 7, sub: "Arbic", full: 100, obt: 96},
-                {sr: 8, sub: "History", full: 100, obt: 84},
-                {sr: 9, sub: "Geography", full: 100, obt: 86},
-                {sr: 10, sub: "Home Economics", full: 100, obt: 70},
-                {sr: 11, sub: "Drawing", full: 50, obt: 50}
-            ],
-            status: "PASS"
-        },
-        {
-            roll: "101", class: "Nursery", name: "Ahmed", father: "Raza Ali", exam: "Annual", session: "2026",
-            marks: [
-                {sr: 1, sub: "English", full: 100, obt: 85},
-                {sr: 2, sub: "Urdu", full: 100, obt: 80},
-                {sr: 3, sub: "Math", full: 100, obt: 90}
-            ],
-            status: "PASS"
-        },
-                {
-            roll: "1", class: "2nd Class", name: "Ahmed", father: "Raza Ali", exam: "Annual", session: "2026",
-            marks: [
-                {sr: 1, sub: "English", full: 100, obt: 85},
-                {sr: 2, sub: "Urdu", full: 100, obt: 80},
-                {sr: 3, sub: "Math", full: 100, obt: 90}
-            ],
-            status: "PASS"
-        }
-    ];
+    async function fetchResult() {
+        const roll = document.getElementById('rollInput').value.trim();
+        const selectedClass = document.getElementById('classInput').value;
+        const sheetLink = 'https://docs.google.com/spreadsheets/d/1x1Gr65o9duJ0qcqqVB5cI4T-JlXNybWQnCKxELZF2ak/export?format=csv';
 
-    function showResult() {
-        const roll = document.getElementById('rollNo').value;
-        const cls = document.getElementById('classSel').value;
-        const student = database.find(s => s.roll === roll && s.class === cls);
+        if(!selectedClass || !roll) return alert("Class aur Roll Number lazmi hain!");
 
-        if(student) {
-            document.getElementById('resultDisplay').style.display = "block";
-            document.getElementById('sName').innerText = student.name;
-            document.getElementById('sFather').innerText = student.father;
-            document.getElementById('sClass').innerText = student.class;
-            document.getElementById('sRoll').innerText = student.roll;
-            document.getElementById('sSession').innerText = student.session;
-            document.getElementById('sExam').innerText = student.exam;
+        try {
+            const response = await fetch(sheetLink);
+            const data = await response.text();
+            const rows = data.split('\n').map(r => r.split(','));
+            
+            const student = rows.find(r => 
+                r[0].trim() === roll && 
+                r[2].trim().toLowerCase() === selectedClass.toLowerCase()
+            );
 
-            let html = "";
-            let tF = 0, tO = 0;
-            student.marks.forEach(m => {
-                html += `<tr><td>${m.sr}</td><td class="sub-name">${m.sub}</td><td>${m.full}</td><td style="color:var(--primary); font-weight:700;">${m.obt}</td></tr>`;
-                tF += m.full; tO += m.obt;
-            });
-            html += `<tr style="background:#f9f9f9; font-weight:700;"><td colspan="2">GRAND TOTAL</td><td>${tF}</td><td>${tO}</td></tr>`;
-            document.getElementById('marksBody').innerHTML = html;
+            if(student) {
+                document.getElementById('resName').innerText = student[1];
+                document.getElementById('resRoll').innerText = student[0];
+                document.getElementById('resClass').innerText = student[2];
+                document.getElementById('resTotal').innerText = student[14];
 
-            const sb = document.getElementById('statusBox');
-            sb.innerText = "RESULT: " + student.status;
-            sb.className = "status-banner " + (student.status === "PASS" ? "pass-bg" : "fail-bg");
-        } else {
-            alert("Maaf kijiye! Record nahi mila. Class aur Roll Number check karein.");
-        }
+                const subjects = [
+                    {n: "Maths", m: student[3]}, {n: "English", m: student[4]},
+                    {n: "Science", m: student[5]}, {n: "Biology", m: student[6]},
+                    {n: "Computer", m: student[7]}, {n: "Urdu", m: student[8]},
+                    {n: "Physics", m: student[9]}, {n: "Chemistry", m: student[10]},
+                    {n: "G.K", m: student[11]}, {n: "Islamiat", m: student[12]},
+                    {n: "T.H.Q", m: student[13]}
+                ];
+
+                let tableHTML = "";
+                subjects.forEach(sub => {
+                    if(sub.m && sub.m.trim() !== "") {
+                        tableHTML += `<tr><td>${sub.n}</td><td style="text-align:right;">${sub.m}</td></tr>`;
+                    }
+                });
+                document.getElementById('subjectsBody').innerHTML = tableHTML;
+
+                const status = student[15] ? student[15].trim() : "N/A";
+                const badge = document.getElementById('resBadge');
+                badge.innerText = status;
+                badge.className = 'status-badge ' + (status.toLowerCase().includes('pass') ? 'pass' : 'fail');
+
+                document.getElementById('resultCard').style.display = 'block';
+                document.getElementById('actionBtns').style.display = 'flex';
+            } else { 
+                alert("Result nahi mila! Data check karein."); 
+            }
+        } catch (e) { alert("Network Error!"); }
     }
 </script>
-
 </body>
 </html>
