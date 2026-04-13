@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Portal | Al-Falah School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1b5e20; --accent: #e67e22; --text: #2c3e50; }
+        
+        body {
+            font-family: 'Poppins', sans-serif; margin: 0; padding: 20px;
+            /* New Background Image: Professional & Deep */
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1541339907198-e08756ebafe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-attachment: fixed;
+            color: var(--text);
+        }
+
+        .main-container { max-width: 850px; margin: 0 auto; background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+
+        .header-section { text-align: center; margin-bottom: 30px; border-bottom: 3px double var(--primary); padding-bottom: 15px; }
+        .header-section h1 { font-family: 'Quicksand', sans-serif; color: var(--primary); margin: 0; font-size: 2.2rem; text-transform: uppercase; }
+        
+        /* Search Area */
+        .search-box { background: #f1f8e9; padding: 25px; border-radius: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; border: 1px solid #c8e6c9; }
+        select, input { padding: 12px; border-radius: 10px; border: 2px solid #ddd; outline: none; font-family: inherit; width: 200px; }
+        .search-btn { background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .search-btn:hover { background: #003300; transform: translateY(-2px); }
+
+        /* Result Card Appearance */
+        #resultDisplay { display: none; animation: slideIn 0.8s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .student-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
+        .meta-box { background: #fff; padding: 12px 15px; border-radius: 12px; border-left: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .meta-label { font-weight: 700; color: #666; font-size: 0.8rem; display: block; text-transform: uppercase; }
+        .meta-value { font-weight: 600; color: var(--text); font-size: 1rem; }
+
+        /* Marks Table */
+        .table-container { overflow-x: auto; border-radius: 15px; background: white; border: 1px solid #eee; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { background: var(--primary); color: white; padding: 15px; text-align: center; font-family: 'Quicksand', sans-serif; letter-spacing: 1px; }
+        td { padding: 12px; text-align: center; border-bottom: 1px solid #eee; font-weight: 500; }
+        .sub-name { text-align: left; padding-left: 25px; font-weight: 600; color: #34495e; }
+
+        .status-banner { margin-top: 25px; text-align: center; font-size: 1.8rem; font-weight: 700; padding: 15px; border-radius: 15px; text-transform: uppercase; }
+        .pass-bg { background: #e8f5e9; color: #2e7d32; border: 2px solid #2e7d32; }
+        .fail-bg { background: #ffebee; color: #c62828; border: 2px solid #c62828; }
+
+        .print-btn { margin-top: 20px; width: 100%; padding: 12px; border-radius: 10px; border: none; background: #455a64; color: white; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .print-btn:hover { background: #263238; }
+        
+        @media print { .search-box, .print-btn { display: none; } body { background: white; padding: 0; } .main-container { box-shadow: none; border: 1px solid #eee; width: 100%; } }
+        @media (max-width: 600px) { .student-meta { grid-template-columns: 1fr; } select, input { width: 100%; } }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="header-section">
+        <h1>Al-Falah Model Education System</h1>
+        <p style="margin:5px; color:#555; font-weight:600;">Toot Campus | Excellence in Education</p>
+    </div>
+
+    <div class="search-box">
+        <select id="classSel">
+            <option value="">-- Select Class --</option>
+            <option value="Nursery">Nursery</option>
+            <option value="Prep">Prep</option>
+            <option value="1st Class">1st Class</option>
+            <option value="2nd Class">2nd Class</option>
+            <option value="3rd Class">3rd Class</option>
+            <option value="4th Class">4th Class</option>
+            <option value="5th Class">5th Class</option>
+            <option value="6th Class">6th Class</option>
+            <option value="7th Class">7th Class</option>
+            <option value="8th Class">8th Class</option>
+            <option value="9th Class">9th Class</option>
+            <option value="10th Class">10th Class</option>
+        </select>
+        <input type="text" id="rollNo" placeholder="Enter Roll No">
+        <button class="search-btn" onclick="showResult()">View Result</button>
+    </div>
+
+    <div id="resultDisplay">
+        <div class="student-meta">
+            <div class="meta-box"><span class="meta-label">Student Name</span><span class="meta-value" id="sName"></span></div>
+            <div class="meta-box"><span class="meta-label">Father's Name</span><span class="meta-value" id="sFather"></span></div>
+            <div class="meta-box"><span class="meta-label">Class</span><span class="meta-value" id="sClass"></span></div>
+            <div class="meta-box"><span class="meta-label">Roll Number</span><span class="meta-value" id="sRoll"></span></div>
+            <div class="meta-box"><span class="meta-label">Session</span><span class="meta-value" id="sSession"></span></div>
+            <div class="meta-box"><span class="meta-label">Examination</span><span class="meta-value" id="sExam"></span></div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:10%">Sr.#</th>
+                        <th style="width:45%">SUBJECTS</th>
+                        <th style="width:20%">FULL MARKS</th>
+                        <th style="width:25%">OBTAINED</th>
+                    </tr>
+                </thead>
+                <tbody id="marksBody"></tbody>
+            </table>
+        </div>
+
+        <div id="statusBox" class="status-banner"></div>
+        <button class="print-btn" onclick="window.print()">Print Result Card</button>
+    </div>
+</div>
+
+<script>
+    const database = [
+        {
+            roll: "901", class: "9th Class", name: "Dua Khan", father: "Muhammad Ali", exam: "Annual 2026", session: "2026-2027",
+            marks: [
+                {sr: 1, sub: "Islamiat", full: 100, obt: 88},
+                {sr: 2, sub: "Urdu", full: 100, obt: 82},
+                {sr: 3, sub: "English", full: 100, obt: 90},
+                {sr: 4, sub: "Math", full: 100, obt: 87},
+                {sr: 5, sub: "Social Studies", full: 100, obt: 93},
+                {sr: 6, sub: "Science", full: 100, obt: 85},
+                {sr: 7, sub: "Arbic", full: 100, obt: 96},
+                {sr: 8, sub: "History", full: 100, obt: 84},
+                {sr: 9, sub: "Geography", full: 100, obt: 86},
+                {sr: 10, sub: "Home Economics", full: 100, obt: 70},
+                {sr: 11, sub: "Drawing", full: 50, obt: 50}
+            ],
+            status: "PASS"
+        },
+        {
+            roll: "101", class: "Nursery", name: "Ahmed", father: "Raza Ali", exam: "Annual", session: "2026",
+            marks: [
+                {sr: 1, sub: "English", full: 100, obt: 85},
+                {sr: 2, sub: "Urdu", full: 100, obt: 80},
+                {sr: 3, sub: "Math", full: 100, obt: 90}
+            ],
+            status: "PASS"
+        },
+                {
+            roll: "1", class: "2nd Class", name: "Ahmed", father: "Raza Ali", exam: "Annual", session: "2026",
+            marks: [
+                {sr: 1, sub: "English", full: 100, obt: 85},
+                {sr: 2, sub: "Urdu", full: 100, obt: 80},
+                {sr: 3, sub: "Math", full: 100, obt: 90}
+            ],
+            status: "PASS"
+        }
+    ];
+
+    function showResult() {
+        const roll = document.getElementById('rollNo').value;
+        const cls = document.getElementById('classSel').value;
+        const student = database.find(s => s.roll === roll && s.class === cls);
+
+        if(student) {
+            document.getElementById('resultDisplay').style.display = "block";
+            document.getElementById('sName').innerText = student.name;
+            document.getElementById('sFather').innerText = student.father;
+            document.getElementById('sClass').innerText = student.class;
+            document.getElementById('sRoll').innerText = student.roll;
+            document.getElementById('sSession').innerText = student.session;
+            document.getElementById('sExam').innerText = student.exam;
+
+            let html = "";
+            let tF = 0, tO = 0;
+            student.marks.forEach(m => {
+                html += `<tr><td>${m.sr}</td><td class="sub-name">${m.sub}</td><td>${m.full}</td><td style="color:var(--primary); font-weight:700;">${m.obt}</td></tr>`;
+                tF += m.full; tO += m.obt;
+            });
+            html += `<tr style="background:#f9f9f9; font-weight:700;"><td colspan="2">GRAND TOTAL</td><td>${tF}</td><td>${tO}</td></tr>`;
+            document.getElementById('marksBody').innerHTML = html;
+
+            const sb = document.getElementById('statusBox');
+            sb.innerText = "RESULT: " + student.status;
+            sb.className = "status-banner " + (student.status === "PASS" ? "pass-bg" : "fail-bg");
+        } else {
+            alert("Maaf kijiye! Record nahi mila. Class aur Roll Number check karein.");
+        }
+    }
+</script>
+
+</body>
+</html>

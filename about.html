@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Al-Falah Model Education System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1b5e20; --accent: #e67e22; --light: #f1f8e9; }
+        
+        body {
+            font-family: 'Poppins', sans-serif; margin: 0; padding: 0;
+            background: #f4f7f6; color: #2c3e50;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-position: center;
+            height: 300px; display: flex; align-items: center; justify-content: center;
+            color: white; text-align: center;
+        }
+        .hero h1 { font-family: 'Quicksand', sans-serif; font-size: 3rem; margin: 0; }
+
+        .container { max-width: 1100px; margin: -50px auto 50px; background: white; padding: 40px; border-radius: 30px; shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+        .intro-text { text-align: center; margin-bottom: 50px; }
+        .intro-text p { font-size: 1.1rem; line-height: 1.8; color: #555; }
+
+        /* Features Grid (12 Items) */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        
+        .feature-card {
+            background: var(--light); padding: 25px; border-radius: 20px;
+            transition: 0.3s; border: 1px solid #e0e0e0; text-align: center;
+        }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--primary); }
+        
+        .feature-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; }
+        .feature-card h3 { color: var(--primary); font-family: 'Quicksand', sans-serif; margin-bottom: 10px; }
+        .feature-card p { font-size: 0.9rem; color: #666; line-height: 1.6; }
+
+        .footer { text-align: center; padding: 30px; background: #263238; color: white; border-radius: 0 0 30px 30px; }
+        .back-btn { display: inline-block; margin-top: 20px; padding: 10px 25px; background: var(--accent); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
+
+        @media (max-width: 600px) { .hero h1 { font-size: 2rem; } .container { margin: -30px 15px 30px; padding: 20px; } }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Hamari Academy</h1>
+    </div>
+
+    <div class="container">
+        <div class="intro-text">
+            <h2 style="color: var(--primary); font-family: 'Quicksand';">Al-Falah Model Education System</h2>
+            <p>Toot Campus mein hum bacho ki kirdaar saazi aur behtareen taleem par tawajjo detay hain. Hamara maqsad sirf kitabi parhai nahi balkay bacho ko kal ka kamyab shehri banana hai.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1577891772247-46ff67f7d26f?auto=format&fit=crop&w=500&q=60" alt="Qualified Teachers">
+                <h3>Qualified Staff</h3>
+                <p>Hamaray paas tajurba kaar aur parhay likhay asatiza hain jo bacho ko pyar se parhatay hain.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=500&q=60" alt="Modern Classrooms">
+                <h3>Modern Classrooms</h3>
+                <p>Hushada aur hawa-dar kamray jahan bacho ka parhai mein dil lagay.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=500&q=60" alt="Library">
+                <h3>Islamic Values</h3>
+                <p>Taleem ke sath sath islami aqdar aur akhlaqiat par khusoosi tawajjo di jati hai.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=60" alt="Sports">
+                <h3>Physical Sports</h3>
+                <p>Sehat mand dimaag ke liye khel kood aur jismani tarbiat ka munasib intezam.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=500&q=60" alt="Science Lab">
+                <h3>Science Lab</h3>
+                <p>Practical seekhnay ke liye jadeed science lab ki suhoolat maujood hai.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=500&q=60" alt="Computer Lab">
+                <h3>Computer Lab</h3>
+                <p>Bacho ko jadeed technology aur computer ki taleem se aaraasta karna.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=500&q=60" alt="Security">
+                <h3>CCTV Security</h3>
+                <p>Bacho ki hifazat ke liye school mein CCTV cameras ka mukammal nizaam.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=500&q=60" alt="Transport">
+                <h3>Filtered Water</h3>
+                <p>Bacho ki sehat ke liye saaf aur thanday pani ka intezam.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1491843351663-f95982f9b6b6?auto=format&fit=crop&w=500&q=60" alt="Events">
+                <h3>Monthly Events</h3>
+                <p>Bacho ki salahiyaton ko ubharne ke liye har mahinay mukabla-baazi aur events.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=500&q=60" alt="Reading">
+                <h3>Spacious Library</h3>
+                <p>Mutalia ke shauq ko barhane ke liye mukhtalif mauzuat par kitabon ka zakhira.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=500&q=60" alt="Parents">
+                <h3>Parent Teacher Meetings</h3>
+                <p>Walidain ke sath rabta taakay bacho ki progress se agah rakha ja sakay.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=500&q=60" alt="Discipline">
+                <h3>Strict Discipline</h3>
+                <p>Nazm-o-zabt hamari academy ki pehli tarjeeh hai.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 Al-Falah Model Education System | Near Bus Stop, Main Street Toot</p>
+            <a href="index.html" class="back-btn">Wapas Home Par Jayein</a>
+        </div>
+    </div>
+
+</body>
+</html>

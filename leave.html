@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Application | Al-Falah School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1b5e20; --accent: #c62828; }
+        
+        * { box-sizing: border-box; } /* Layout fixed karne ke liye */
+
+        body {
+            font-family: 'Poppins', sans-serif; margin: 0; padding: 10px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-attachment: fixed; color: #333;
+        }
+
+        .container { 
+            width: 100%; max-width: 650px; margin: 20px auto; 
+            background: rgba(255, 255, 255, 0.98); 
+            padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        }
+
+        .header { text-align: center; border-bottom: 2px solid var(--accent); margin-bottom: 20px; padding-bottom: 10px; }
+        .header h1 { font-family: 'Quicksand', sans-serif; color: var(--accent); margin: 0; font-size: 1.5rem; }
+
+        /* Grid System - Responsive */
+        .grid { display: flex; flex-wrap: wrap; gap: 15px; }
+        .input-group { flex: 1 1 250px; display: flex; flex-direction: column; gap: 5px; }
+        .full { flex: 1 1 100%; }
+
+        label { font-weight: 600; font-size: 0.85rem; color: #444; }
+        
+        input, select, textarea { 
+            width: 100%; padding: 12px; border: 2px solid #ddd; 
+            border-radius: 10px; outline: none; font-family: inherit; font-size: 0.95rem;
+        }
+
+        input:focus, textarea:focus { border-color: var(--accent); background: #fff8f8; }
+
+        #medicalSection { 
+            display: none; background: #ffebee; padding: 15px; border-radius: 12px; 
+            margin: 15px 0; border: 1px dashed var(--accent); width: 100%;
+        }
+
+        .submit-btn { 
+            width: 100%; padding: 15px; margin-top: 20px; background: #25d366; color: white; 
+            border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; 
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        .home-link { display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #666; font-size: 0.9rem; font-weight: 600; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 480px) {
+            .container { padding: 15px; }
+            .header h1 { font-size: 1.3rem; }
+            .submit-btn { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Leave Application</h1>
+        <p style="margin:5px; font-size:0.9rem; font-weight:600;">Al-Falah Model Education System</p>
+    </div>
+
+    <form id="leaveForm">
+        <div class="grid">
+            <div class="input-group">
+                <label>Student Name *</label>
+                <input type="text" id="l_name" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+                <label>Class/Section *</label>
+                <input type="text" id="l_class" placeholder="e.g. 10th-A" required>
+            </div>
+            <div class="input-group">
+                <label>Leave From *</label>
+                <input type="date" id="l_from" required>
+            </div>
+            <div class="input-group">
+                <label>Leave To *</label>
+                <input type="date" id="l_to" required>
+            </div>
+            <div class="input-group full">
+                <label>Reason for Leave *</label>
+                <select id="l_reason" onchange="checkReason()" required>
+                    <option value="">-- Select Reason --</option>
+                    <option value="Sickness (Bimari)">Sickness (Bimari)</option>
+                    <option value="Urgent Piece of Work">Urgent Piece of Work</option>
+                    <option value="Marriage Ceremony">Marriage Ceremony</option>
+                    <option value="Other">Other Reason</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="medicalSection">
+            <label style="color: var(--accent); font-weight: bold; display: block;">⚠️ Medical Evidence Required</label>
+            <p style="font-size: 0.75rem; margin: 5px 0;">Please attach your doctor's slip in WhatsApp chat after clicking submit.</p>
+            <input type="file" id="l_slip" style="padding: 5px; border: none;">
+        </div>
+
+        <div class="input-group full" style="margin-top: 15px;">
+            <label>Explain Detail *</label>
+            <textarea id="l_desc" rows="3" placeholder="Kitne din aur kyun? Tafseel likhein..." required></textarea>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="sendLeaveToWA()">
+            Submit to Principal 💬
+        </button>
+
+        <a href="index.html" class="home-link">← Back to Home</a>
+    </form>
+</div>
+
+<script>
+    function checkReason() {
+        const reason = document.getElementById('l_reason').value;
+        const medSec = document.getElementById('medicalSection');
+        medSec.style.display = reason.includes("Sickness") ? "block" : "none";
+    }
+
+    function sendLeaveToWA() {
+        const name = document.getElementById('l_name').value;
+        const sClass = document.getElementById('l_class').value;
+        const from = document.getElementById('l_from').value;
+        const to = document.getElementById('l_to').value;
+        const reason = document.getElementById('l_reason').value;
+        const desc = document.getElementById('l_desc').value;
+
+        if(!name || !from || !to || !reason || !desc) {
+            alert("Meharbani karke mukammal form bharein.");
+            return;
+        }
+
+        const myNumber = "923325657403";
+        
+        // WhatsApp Message Format
+        let message = `*📝 LEAVE APPLICATION 📝*%0A%0A`;
+        message += `*Student:* ${name}%0A`;
+        message += `*Class:* ${sClass}%0A`;
+        message += `*From:* ${from}%0A`;
+        message += `*To:* ${to}%0A`;
+        message += `*Reason:* ${reason}%0A%0A`;
+        message += `*Tafseel:* ${desc}%0A`;
+        
+        if(reason.includes("Sickness")) {
+            message += `%0A_Note: Medical slip bacha sath attach kar raha hai._`;
+        }
+
+        const url = `https://wa.me/${myNumber}?text=${message}`;
+        window.open(url, '_blank').focus();
+    }
+</script>
+
+</body>
+</html>

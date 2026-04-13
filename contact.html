@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Al-Falah Model School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1b5e20; --accent: #e67e22; }
+        
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif; margin: 0; padding: 0;
+            background: #f4f7f4; color: #333;
+        }
+
+        .contact-header {
+            background: linear-gradient(rgba(27, 94, 32, 0.9), rgba(27, 94, 32, 0.9)), 
+                        url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; color: white; text-align: center; padding: 60px 20px;
+        }
+
+        .container { max-width: 1100px; margin: -40px auto 50px; padding: 0 20px; }
+
+        .contact-wrapper {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+            background: white; padding: 40px; border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .info-section h2 { color: var(--primary); font-family: 'Quicksand'; margin-bottom: 25px; }
+        .info-card { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
+        .icon-circle { 
+            background: #e8f5e9; color: var(--primary); 
+            width: 45px; height: 45px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+        }
+
+        .form-section { background: #f9f9f9; padding: 30px; border-radius: 20px; }
+        .form-section input, .form-section textarea {
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            border: 2px solid #eee; border-radius: 10px; outline: none; font-family: inherit;
+        }
+        .form-section input:focus { border-color: var(--primary); }
+
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .btn { 
+            text-decoration: none; padding: 15px; border-radius: 12px; 
+            text-align: center; font-weight: 700; color: white; transition: 0.3s;
+        }
+        .btn-wa { background: #25d366; }
+        .btn-call { background: var(--primary); }
+        .btn-submit { background: var(--accent); border: none; width: 100%; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .contact-wrapper { grid-template-columns: 1fr; padding: 25px; }
+            .contact-header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="contact-header">
+        <h1 style="font-family: 'Quicksand';">Ham Se Rabta Karein</h1>
+        <p>Al-Falah Model Education System is always here to help.</p>
+    </header>
+
+    <div class="container">
+        <div class="contact-wrapper">
+            <div class="info-section">
+                <h2>Contact Information</h2>
+                
+                <div class="info-card">
+                    <div class="icon-circle">📍</div>
+                    <div>
+                        <strong>Address</strong>
+                        <p style="margin: 5px 0; color: #666;">Near Bus Stop, Main Street Toot</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon-circle">📞</div>
+                    <div>
+                        <strong>Phone / WhatsApp</strong>
+                        <p style="margin: 5px 0; color: #666;">+92 332 5657403</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon-circle">⏰</div>
+                    <div>
+                        <strong>Office Hours</strong>
+                        <p style="margin: 5px 0; color: #666;">Mon - Sat: 08:00 AM - 02:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <a href="https://wa.me/923325657403" class="btn btn-wa">Chat on WhatsApp 💬</a>
+                    <a href="tel:923325657403" class="btn btn-call">Call School Office 📞</a>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 style="margin-top: 0; color: var(--primary);">Quick Inquiry</h3>
+                <form id="contactMsg">
+                    <input type="text" id="user_name" placeholder="Aapka Naam" required>
+                    <input type="tel" id="user_phone" placeholder="Phone Number" required>
+                    <textarea id="user_msg" rows="5" placeholder="Sawal ya Message likhein..." required></textarea>
+                    <button type="button" class="btn btn-submit" onclick="sendInquiry()">Bhaijein via WhatsApp</button>
+                </form>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" style="color: var(--primary); font-weight: 700; text-decoration: none;">← Back to Home Page</a>
+        </div>
+    </div>
+
+    <script>
+        function sendInquiry() {
+            const name = document.getElementById('user_name').value;
+            const phone = document.getElementById('user_phone').value;
+            const msg = document.getElementById('user_msg').value;
+
+            if(!name || !phone || !msg) {
+                alert("Meharbani karke sab fields fill karein.");
+                return;
+            }
+
+            const myNum = "923325657403";
+            const fullMsg = `*-- NAYA SAWAL (Contact Page) --*%0A%0A` +
+                            `*Naam:* ${name}%0A` +
+                            `*Phone:* ${phone}%0A` +
+                            `*Message:* ${msg}`;
+
+            window.open(`https://wa.me/${myNum}?text=${fullMsg}`, '_blank');
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest News | Al-Falah Model School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1b5e20; --accent: #e67e22; --bg: #f0f2f5; }
+        
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif; margin: 0; padding: 0;
+            background: var(--bg); color: #333;
+        }
+
+        /* Header */
+        .news-header {
+            background: var(--primary); color: white;
+            padding: 40px 20px; text-align: center;
+            border-bottom: 5px solid var(--accent);
+        }
+        .news-header h1 { margin: 0; font-family: 'Quicksand'; font-size: 2.5rem; }
+
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .news-card {
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s; display: flex; flex-direction: column;
+        }
+        .news-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+
+        .news-img {
+            width: 100%; height: 200px; object-fit: cover;
+            background: #ddd;
+        }
+
+        .news-content { padding: 20px; flex-grow: 1; }
+        .news-date { font-size: 0.8rem; color: var(--accent); font-weight: 700; margin-bottom: 10px; display: block; }
+        .news-title { font-size: 1.2rem; font-weight: 700; margin: 0 0 10px 0; color: var(--primary); }
+        .news-desc { font-size: 0.9rem; color: #666; line-height: 1.5; }
+
+        .badge {
+            display: inline-block; padding: 3px 10px; background: #e8f5e9;
+            color: var(--primary); border-radius: 5px; font-size: 0.75rem;
+            margin-bottom: 10px; font-weight: 600;
+        }
+
+        .footer { text-align: center; padding: 40px; margin-top: 50px; background: #263238; color: white; }
+        .back-btn { 
+            display: inline-block; margin-top: 15px; padding: 10px 25px; 
+            background: var(--accent); color: white; text-decoration: none; 
+            border-radius: 8px; font-weight: bold; 
+        }
+
+        @media (max-width: 600px) {
+            .news-header h1 { font-size: 1.8rem; }
+            .news-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="news-header">
+        <h1>Academy News & Updates</h1>
+        <p>Stay updated with Al-Falah Model Education System</p>
+    </header>
+
+    <div class="container">
+        <div class="news-grid" id="newsBox">
+            </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Al-Falah Model Education System | Toot Campus</p>
+        <a href="index.html" class="back-btn">Back to Home</a>
+    </footer>
+
+    <script>
+        const newsData = [
+            { title: "New Session Admissions Open", date: "April 10, 2026", cat: "Admission", desc: "Nursery se 11th class tak ke admissions jari hain. Jald az jald rabta karein.", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=500&q=60" },
+            { title: "Annual Prize Distribution", date: "April 05, 2026", cat: "Event", desc: "Pichlay saal ke position holders mein inaamaat taqseem kiye gaye.", img: "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=500&q=60" },
+            { title: "New Science Lab Setup", date: "March 28, 2026", cat: "Facility", desc: "Bacho ke liye jadeed equipments ke sath nayi science lab ka iftitah.", img: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=500&q=60" },
+            { title: "Eid Holidays Announcement", date: "March 20, 2026", cat: "Holiday", desc: "Eid-ul-Fitr ki chuttiyan 15 April se shuru hongi.", img: "https://images.unsplash.com/photo-1564120282132-723528898141?auto=format&fit=crop&w=500&q=60" },
+            { title: "Sports Week 2026", date: "March 15, 2026", cat: "Sports", desc: "Cricket, Football aur Badminton ke muqablay aglay haftay se shuru hain.", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=60" },
+            { title: "Clean Green Toot Drive", date: "March 10, 2026", cat: "Activity", desc: "School ke bacho ne 'Clean Toot' campaign mein barh charh kar hissa liya.", img: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=500&q=60" },
+            { title: "Parent Teacher Meeting", date: "March 05, 2026", cat: "Notice", desc: "Monthly progress check karne ke liye walidain ko madu kiya jata hai.", img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=500&q=60" },
+            { title: "Scholarship Test Results", date: "Feb 28, 2026", cat: "Result", desc: "Intelligent bacho ke liye 50% discount scholarship ka elaan.", img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=500&q=60" },
+            { title: "Computer Lab Upgraded", date: "Feb 20, 2026", cat: "Facility", desc: "Naye computers aur high speed internet ki suhoolat ab dastiyab hai.", img: "https://images.unsplash.com/photo-1536411396596-afed9fa3c1b2?auto=format&fit=crop&w=500&q=60" },
+            { title: "Health Seminar for Students", date: "Feb 15, 2026", cat: "Workshop", desc: "Doctor ne bacho ko saaf suthra rehne aur sehat mand khorak par lecture diya.", img: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=500&q=60" },
+            { title: "Speech Competition Winner", date: "Feb 10, 2026", cat: "Achievement", desc: "Grade 8 ki talba ne inter-school speech contest mein pehli position hasil ki.", img: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=500&q=60" },
+            { title: "Summer Uniform Update", date: "Feb 01, 2026", cat: "Notice", desc: "1st March se garmiyon ka uniform pehenna laazmi hoga.", img: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&w=500&q=60" },
+            { title: "Library New Collection", date: "Jan 25, 2026", cat: "Update", desc: "Islamic aur General Knowledge ki 500 nayi kitabein library mein shamil.", img: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=500&q=60" },
+            { title: "Free Medical Camp", date: "Jan 15, 2026", cat: "Event", desc: "Toot ke bacho aur unke ghar walon ke liye muft eye checkup camp.", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=500&q=60" },
+            { title: "Winter Vacation Ends", date: "Jan 01, 2026", cat: "Holiday", desc: "Sardiyon ki chuttiyon ke baad school dobara khul gaye hain.", img: "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&w=500&q=60" },
+            { title: "10th Class Extra Classes", date: "Dec 20, 2025", cat: "Education", desc: "Board exams ki tayyari ke liye subha 7 baje extra classes lagengi.", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=500&q=60" },
+            { title: "Plantation Day in School", date: "Dec 10, 2025", cat: "Event", desc: "Har bache ne school ground mein ek ek poda lagaya.", img: "https://images.unsplash.com/photo-1599148482840-d5d951525aab?auto=format&fit=crop&w=500&q=60" },
+            { title: "Art & Craft Exhibition", date: "Dec 01, 2025", cat: "Creative", desc: "Bacho ne recycled material se bani cheezein show kiyein.", img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=500&q=60" },
+            { title: "New Transport Van", date: "Nov 20, 2025", cat: "Service", desc: "Dour daraz ke bacho ke liye aik aur nayi van ka izafa.", img: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=500&q=60" },
+            { title: "Quiz Competition Final", date: "Nov 10, 2025", cat: "Event", desc: "General knowledge quiz mein Green House ne jeet hasil ki.", img: "https://images.unsplash.com/photo-1511629091441-ee46146481b6?auto=format&fit=crop&w=500&q=60" }
+        ];
+
+        const newsGrid = document.getElementById('newsBox');
+        
+        newsData.forEach(item => {
+            const card = `
+                <div class="news-card">
+                    <img src="${item.img}" class="news-img" alt="News Image">
+                    <div class="news-content">
+                        <span class="badge">${item.cat}</span>
+                        <span class="news-date">${item.date}</span>
+                        <h3 class="news-title">${item.title}</h3>
+                        <p class="news-desc">${item.desc}</p>
+                    </div>
+                </div>
+            `;
+            newsGrid.innerHTML += card;
+        });
+    </script>
+</body>
+</html>

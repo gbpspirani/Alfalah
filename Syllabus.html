@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus | Al-Falah Model School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1b5e20; --accent: #e67e22; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f4; color: #333; }
+        
+        .header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; border-bottom: 5px solid var(--accent); }
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 15px; }
+
+        .syllabus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+
+        .class-card {
+            background: white; border-radius: 15px; padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary);
+            transition: 0.3s;
+        }
+        .class-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        
+        .class-title { font-family: 'Quicksand'; color: var(--primary); font-size: 1.4rem; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; }
+        
+        .subject-item { margin-bottom: 15px; }
+        .subject-name { font-weight: 700; color: var(--accent); font-size: 0.95rem; display: block; margin-bottom: 5px; }
+        .topics { font-size: 0.85rem; color: #666; padding-left: 15px; margin: 0; }
+        
+        .footer { text-align: center; padding: 40px; }
+        .back-link { text-decoration: none; color: var(--primary); font-weight: 700; }
+
+        @media (max-width: 600px) { .syllabus-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1 style="font-family: 'Quicksand'; margin: 0;">Class-wise Syllabus</h1>
+        <p>Detailed Curriculum from Nursery to 12th Grade</p>
+    </header>
+
+    <div class="container">
+        <div class="syllabus-grid" id="syllabusContainer">
+            </div>
+    </div>
+
+    <div class="footer">
+        <a href="index.html" class="back-link">← Wapas Home Page Par Jayein</a>
+    </div>
+
+    <script>
+        const fullSyllabus = [
+            { class: "Nursery", subs: [ {n: "English", t: "A-Z, Tracing"}, {n: "Math", t: "1-50, Shapes"}, {n: "Urdu", t: "Alif-Ye Recognition"} ] },
+            { class: "Prep", subs: [ {n: "English", t: "Two letter words, Poems"}, {n: "General Knowledge", t: "My Body, My Family"}, {n: "Drawing", t: "Coloring shapes"} ] },
+            { class: "Class 1", subs: [ {n: "English", t: "Nouns, Small sentences"}, {n: "Science", t: "Living & Non-living"}, {n: "Islamiat", t: "Pehla Kalma, Dua"} ] },
+            { class: "Class 2", subs: [ {n: "Math", t: "Addition, Subtraction"}, {n: "Urdu", t: "Sabaq Reading, Dictation"}, {n: "G.K", t: "Animal Kingdom"} ] },
+            { class: "Class 3", subs: [ {n: "Science", t: "Plants, Human Senses"}, {n: "Math", t: "Multiplication, Division"}, {n: "English", t: "Pronouns, Verbs"} ] },
+            { class: "Class 4", subs: [ {n: "Social Studies", t: "Maps, Provinces"}, {n: "Computer", t: "Parts of PC, Paint"}, {n: "English", t: "Story writing"} ] },
+            { class: "Class 5", subs: [ {n: "Science", t: "Space, Matter"}, {n: "Islamiat", t: "Wazu, Namaz"}, {n: "Math", t: "Fractions, Decimals"} ] },
+            { class: "Class 6", subs: [ {n: "History", t: "Indus Valley Civilisation"}, {n: "Science", t: "Cells, Photosynthesis"}, {n: "Urdu", t: "Mazmoon Nigari"} ] },
+            { class: "Class 7", subs: [ {n: "Math", t: "Algebra, Ratios"}, {n: "Computer", t: "Programming basics"}, {n: "Geography", t: "Climate, Earth"} ] },
+            { class: "Class 8", subs: [ {n: "Science", t: "Nervous System, DNA"}, {n: "English", t: "Active/Passive Voice"}, {n: "Math", t: "Financial Arithmetic"} ] },
+            { class: "Class 9", subs: [ {n: "Physics", t: "Dynamics, Kinematics"}, {n: "Chemistry", t: "Atomic Structure"}, {n: "Biology", t: "Tissues, Enzymes"} ] },
+            { class: "Class 10", subs: [ {n: "Physics", t: "Electricity, Waves"}, {n: "Math", t: "Trigonometry, Sets"}, {n: "Computer", t: "C Language basics exercise 1 to 10"},
+            {n: "Chemistry", t: "C Language basics exercise 1 to 10"},
+            {n: "Urdu Grammer", t: "C Language basics exercise 1 to 10"}] },
+            { class: "Class 11", subs: [ {n: "Math/Bio", t: "Calculus / Botany"}, {n: "English", t: "Plays, Short Stories"}, {n: "Physics", t: "Fluid Dynamics"} ] },
+            { class: "Class 12", subs: [ {n: "Physics", t: "Nuclear Physics"}, {n: "Chemistry", t: "Polymers, Biochemistry"}, {n: "Pak Studies", t: "Current Affairs"} ] }
+        ];
+
+        const container = document.getElementById('syllabusContainer');
+
+        fullSyllabus.forEach(item => {
+            let subHTML = '';
+            item.subs.forEach(s => {
+                subHTML += `
+                    <div class="subject-item">
+                        <span class="subject-name">${s.n}</span>
+                        <p class="topics">${s.t}</p>
+                    </div>
+                `;
+            });
+
+            container.innerHTML += `
+                <div class="class-card">
+                    <div class="class-title">
+                        <span>${item.class}</span>
+                        <small style="font-size: 0.7rem; color: #aaa;">2026</small>
+                    </div>
+                    ${subHTML}
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

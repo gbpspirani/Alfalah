@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Falah Model Education System | Toot Campus Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #004d40;
+            --primary-light: #00796b;
+            --accent: #fbc02d;
+            --white: #ffffff;
+            --text-on-light: #212121;
+            --bg-color: #fdfdfd;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.3s ease-in-out; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-on-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- STICKY WHITE NAVIGATION BAR --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 6%;
+            background: var(--white);
+            background-image: radial-gradient(#e0e0e0 0.8px, transparent 0.8px), radial-gradient(#e0e0e0 0.8px, #ffffff 0.8px);
+            background-size: 15px 15px;
+            position: sticky; top: 0; z-index: 2000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-bottom: 3px solid var(--primary-light);
+        }
+
+        .logo-section { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-section img { height: 50px; border-radius: 5px; }
+        .school-info .name { display: block; font-family: 'Quicksand'; font-weight: 700; font-size: 1.5rem; line-height: 1; color: var(--primary-dark); }
+        .school-info .tagline { font-size: 0.75rem; color: #555; }
+
+        /* Desktop Nav */
+        .nav-links-desktop { display: flex; list-style: none; gap: 20px; }
+        .nav-links-desktop a { text-decoration: none; color: var(--text-on-light); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; }
+        .nav-links-desktop a:hover { color: var(--primary-light); }
+
+        /* --- 3 LINES BUTTON --- */
+        .menu-btn {
+            display: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 10px;
+            background: rgba(0,0,0,0.05); border-radius: 8px; z-index: 3001;
+        }
+        .menu-btn div { width: 28px; height: 3px; background: var(--primary-dark); border-radius: 2px; }
+
+        /* --- SIDEBAR MENU --- */
+        .sidebar {
+            position: fixed; top: 0; right: -100%; width: 280px; height: 100%;
+            background: var(--primary-dark); z-index: 3000; padding: 80px 30px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.3); transition: 0.5s ease;
+        }
+        .sidebar.active { right: 0; }
+        .sidebar-links { list-style: none; }
+        .sidebar-links a { 
+            color: white; text-decoration: none; font-size: 1.1rem; display: block; 
+            padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); 
+        }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2.5rem; color: white; cursor: pointer; }
+
+        /* Hero */
+        .hero {
+            height: 50vh; background: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 0, 0, 0.8)), 
+            url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover; background-attachment: fixed; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white);
+        }
+        .hero h1 { font-family: 'Quicksand'; font-size: clamp(2.2rem, 6vw, 4rem); color: var(--accent); }
+
+        .container { width: 92%; max-width: 1200px; margin: 30px auto; position: relative; z-index: 10; }
+
+        .hub-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 50px; }
+        .hub-item { 
+            display: flex; align-items: center; background: var(--white); padding: 25px 15px; border-radius: 15px; 
+            text-decoration: none; color: var(--text-on-light); box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee;
+        }
+        .hub-item:hover { transform: translateY(-5px); border-color: var(--primary-light); }
+        .hub-item i { font-size: 2rem; margin-right: 15px; font-style: normal; }
+        .hub-item span { font-weight: 700; font-size: 0.9rem; text-transform: uppercase; color: var(--primary-dark); }
+
+        .featured-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .f-card { background: var(--white); border-radius: 25px; overflow: hidden; text-decoration: none; box-shadow: 0 15px 40px rgba(0,0,0,0.06); }
+        .f-img { height: 200px; background-size: cover; background-position: center; }
+        .f-content { padding: 25px; text-align: center; }
+        .f-content h3 { color: var(--primary-light); font-family: 'Quicksand'; }
+
+        footer { background: var(--primary-dark); color: var(--white); padding: 50px 20px; text-align: center; margin-top: 80px; border-top: 5px solid var(--accent); }
+
+        @media (max-width: 900px) {
+            .nav-links-desktop { display: none; }
+            .menu-btn { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-section">
+            <img src="logo.png" alt="Logo">
+            <div class="school-info">
+                <span class="name">Al-Falah Model</span>
+                <span class="tagline">Education System | Toot Campus</span>
+            </div>
+        </a>
+        
+        <ul class="nav-links-desktop">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About School</a></li>
+            <li><a href="admission.html">Admissions</a></li>
+            <li><a href="syllabus.html">Syllabus</a></li>
+            <li><a href="fee.html">Fees</a></li>
+            <li><a href="result.html">Results</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="menu-btn" onclick="toggleMenu()">
+            <div></div><div></div><div></div>
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <ul class="sidebar-links">
+            <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+            <li><a href="about.html" onclick="toggleMenu()">About Us</a></li>
+            <li><a href="admission.html" onclick="toggleMenu()">Admissions</a></li>
+            <li><a href="syllabus.html" onclick="toggleMenu()">Syllabus</a></li>
+            <li><a href="fee.html" onclick="toggleMenu()">Fee Structure</a></li>
+            <li><a href="result.html" onclick="toggleMenu()">Exam Results</a></li>
+            <li><a href="contact.html" onclick="toggleMenu()">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+        <h1>Welcome to a Brighter Future</h1>
+        <p>Innovation & Character Building - shaping the leaders of tomorrow.</p>
+    </section>
+
+    <div class="container">
+        <div class="hub-grid">
+            <a href="about.html" class="hub-item"><i>🏛️</i><span>About Us</span></a>
+            <a href="admission.html" class="hub-item"><i>📝</i><span>Admissions</span></a>
+            <a href="syllabus.html" class="hub-item"><i>📚</i><span>Syllabus</span></a>
+            <a href="fee.html" class="hub-item"><i>💳</i><span>Fees & Structure</span></a>
+            <a href="result.html" class="hub-item"><i>🏆</i><span>Results</span></a>
+            <a href="leave.html" class="hub-item"><i>📩</i><span>Leave Application</span></a>
+            <a href="news.html" class="hub-item"><i>📢</i><span>News & Updates</span></a>
+            <a href="contact.html" class="hub-item"><i>📞</i><span>Contact</span></a>
+        </div>
+
+        <div class="featured-section">
+            <a href="admission.html" class="f-card">
+                <div class="f-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=500');"></div>
+                <div class="f-content"><h3>Apply Online</h3><p>Session 2026-27 admissions open hain.</p></div>
+            </a>
+            <a href="news.html" class="f-card">
+                <div class="f-img" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500');"></div>
+                <div class="f-content"><h3>School Activities</h3><p>Check out our latest events.</p></div>
+            </a>
+            <a href="result.html" class="f-card">
+                <div class="f-img" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500');"></div>
+                <div class="f-content"><h3>Online Results</h3><p>Check your exam results online.</p></div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <h2>Al-Falah Model Education System</h2>
+        <p>Main Street Toot, Pakistan | +92 332 5657403</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>

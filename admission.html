@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Form | Al-Falah Model School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1b5e20; --accent: #e67e22; }
+        body {
+            font-family: 'Poppins', sans-serif; margin: 0; padding: 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-attachment: fixed; color: #333;
+        }
+        .form-container { 
+            max-width: 850px; margin: 0 auto; background: rgba(255, 255, 255, 0.98); 
+            padding: 40px; border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+        }
+        .form-header { text-align: center; border-bottom: 3px solid var(--primary); padding-bottom: 20px; margin-bottom: 30px; }
+        .form-header h1 { font-family: 'Quicksand', sans-serif; color: var(--primary); margin: 0; }
+        .section-title { 
+            background: var(--primary); color: white; padding: 8px 20px; border-radius: 50px; 
+            display: inline-block; font-size: 0.9rem; margin: 25px 0 15px 0; font-family: 'Quicksand';
+        }
+        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        label { font-weight: 600; font-size: 0.9rem; color: #444; }
+        input, select, textarea { 
+            padding: 12px; border: 2px solid #ddd; border-radius: 12px; outline: none; font-family: inherit; 
+        }
+        input:focus, select:focus { border-color: var(--primary); background: #f9fff9; }
+        .full-width { grid-column: span 2; }
+        .submit-btn { 
+            width: 100%; padding: 18px; margin-top: 30px; background: #25d366; color: white; 
+            border: none; border-radius: 15px; font-size: 1.2rem; font-weight: 700; cursor: pointer; 
+            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s;
+        }
+        .submit-btn:hover { background: #128c7e; transform: translateY(-3px); }
+        @media (max-width: 600px) { .grid-layout { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="form-header">
+        <h1>New Admission Form</h1>
+        <p>Al-Falah Model Education System, Toot</p>
+    </div>
+
+    <form id="fullAdmissionForm">
+        <div class="section-title">1. Student Personal Details</div>
+        <div class="grid-layout">
+            <div class="input-group">
+                <label>Student Full Name *</label>
+                <input type="text" id="s_name" required>
+            </div>
+            <div class="input-group">
+                <label>Father's Name *</label>
+                <input type="text" id="f_name" required>
+            </div>
+            <div class="input-group">
+                <label>Date of Birth *</label>
+                <input type="date" id="dob" required>
+            </div>
+            <div class="input-group">
+                <label>Gender *</label>
+                <select id="gender" required>
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Applying for Class *</label>
+                <select id="applied_class" required>
+                    <option value="">Select Class</option>
+                    <option value="Nursery">Nursery</option>
+                    <option value="Prep">Prep</option>
+                    <option value="1st to 11th">1st to 11th</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>B-Form / CNIC No.</label>
+                <input type="text" id="cnic" placeholder="00000-0000000-0">
+            </div>
+        </div>
+
+        <div class="section-title">2. Contact & Address</div>
+        <div class="grid-layout">
+            <div class="input-group">
+                <label>WhatsApp Number *</label>
+                <input type="tel" id="wa_num" placeholder="03xxxxxxxxx" required>
+            </div>
+            <div class="input-group">
+                <label>Email (Optional)</label>
+                <input type="email" id="email">
+            </div>
+            <div class="input-group full-width">
+                <label>Permanent Home Address *</label>
+                <textarea id="address" rows="3" required></textarea>
+            </div>
+        </div>
+
+        <div class="section-title">3. Previous Academic Info</div>
+        <div class="grid-layout">
+            <div class="input-group">
+                <label>Last School Name</label>
+                <input type="text" id="prev_school">
+            </div>
+            <div class="input-group">
+                <label>Last Class Attended</label>
+                <input type="text" id="last_class">
+            </div>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="sendCompleteData()">
+            Submit via WhatsApp 💬
+        </button>
+    </form>
+</div>
+
+<script>
+    function sendCompleteData() {
+        const data = {
+            name: document.getElementById('s_name').value,
+            fname: document.getElementById('f_name').value,
+            dob: document.getElementById('dob').value,
+            gender: document.getElementById('gender').value,
+            class: document.getElementById('applied_class').value,
+            cnic: document.getElementById('cnic').value,
+            phone: document.getElementById('wa_num').value,
+            email: document.getElementById('email').value,
+            address: document.getElementById('address').value,
+            prevSchool: document.getElementById('prev_school').value,
+            lastClass: document.getElementById('last_class').value
+        };
+
+        if(!data.name || !data.fname || !data.phone || !data.address) {
+            alert("Meharbani karke laazmi (*) fields puray karein.");
+            return;
+        }
+
+        const myNumber = "923325657403";
+
+        // Building a clean, detailed message
+        let message = `*✨ NAYA ADMISSION FORM ✨*%0A%0A`;
+        message += `*--- STUDENT INFO ---*%0A`;
+        message += `*Naam:* ${data.name}%0A`;
+        message += `*Walid ka Naam:* ${data.fname}%0A`;
+        message += `*Tareekh-e-Paidaish:* ${data.dob}%0A`;
+        message += `*Jins:* ${data.gender}%0A`;
+        message += `*Class:* ${data.class}%0A`;
+        message += `*B-Form:* ${data.cnic || 'N/A'}%0A%0A`;
+        
+        message += `*--- CONTACT INFO ---*%0A`;
+        message += `*Phone:* ${data.phone}%0A`;
+        message += `*Email:* ${data.email || 'N/A'}%0A`;
+        message += `*Address:* ${data.address}%0A%0A`;
+        
+        message += `*--- PREVIOUS SCHOOL ---*%0A`;
+        message += `*School:* ${data.prevSchool || 'N/A'}%0A`;
+        message += `*Last Class:* ${data.lastClass || 'N/A'}`;
+
+        const url = `https://wa.me/${myNumber}?text=${message}`;
+        window.open(url, '_blank').focus();
+    }
+</script>
+
+</body>
+</html>
